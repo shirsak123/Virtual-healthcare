@@ -1,0 +1,183 @@
+{% extends "adminBase.html"%} {% load static %} 
+{% block content %}
+<title>Pharmacies</title>
+    {% include 'includes/admin_header.html' %}
+    {% include 'includes/admin_sidebar.html' %}
+
+    <div class="pt-5 mt-5" >
+        <div class="container pb-5 ">
+            <h2 class="text">Pharmacy List 
+                <span>
+                    <button type="button" class="btn btn-primary px-3 py-1 float-end fs-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      Add
+                    </button>
+                </span>
+                <!-- Button trigger modal -->
+                
+                <!-- Modal -->
+                <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Specialists</h5>
+                        <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="" class="">
+                          <div class="form-group mb-2">
+                              <label class="fs-6" for="">Pharmacy Name</label>
+                              <input type="text" class="form-control" name="" id="">
+                          </div>
+                          <div class="form-group mb-2">
+                              <label class="fs-6" for="">Pharmacy Address</label>
+                              <input type="text" class="form-control" name="" id="">
+                          </div>                    
+                          <div class="form-group mb-2">
+                              <label class="fs-6" for="">Phone</label>
+                              <input type="text" class="form-control" name="" id="">
+                          </div>
+                          <div class=" mt-2 mb-2 border p-2">
+                              <label class="fs-6">Image</label>
+                              <input class="fs-6" type="file" id="myfile" name="specialist-img">
+                          </div>
+                          <div class="form-group mb-2">
+                              <label class="fs-6" for="">Open Time</label>
+                              <input type="text" class="form-control" name="" id="">
+                          </div>
+                          <div class="form-group mb-2">
+                            <label class="fs-6" for="">Close Time</label>
+                            <input type="text" class="form-control" name="" id="">
+                        </div>
+                      </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input class="btn btn-primary" type="submit" name="" id="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+
+            </h2>             
+        </div>
+        
+        
+        <table class="table border">
+            <thead>
+              <tr class="bg-light">
+                <th scope="col">#</th>
+                <th scope="col">Pharmacy Name</th>
+                <th scope="col">Pharmacy Address</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Open Time</th>
+                <th scope="col">Close Time</th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for pharmacy in pharmacy_list %}
+              <tr>
+                <th scope="row">1</th>
+                <td scope="row">
+                  <a href="#" class="name"> <img src="{{pharmacy.photo.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{pharmacy.pharmacy_name}}</span></a>
+              </td>
+                <td>{{pharmacy.address}}</td>
+                <td>{{pharmacy.phone_number}}</td>
+                <td class="pt-3">
+                  <i class="fas fa-star"></i>
+                                    <i class="{% if pharmacy.rating > 1 %} fas fa-star{% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if pharmacy.rating > 2 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if pharmacy.rating > 3 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if pharmacy.rating > 4 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+              </td>
+                <td class="text-info pt-3">{{pharmacy.opens_at}}</td>
+                <td class="text-info pt-3">{{pharmacy.closes_at}}</td>
+                <td>
+                    <span>
+                        <button class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Edit</button>                                              
+                        <!-- Modal -->
+                        <div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit Specialists</h5>
+                                <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="" class="">
+                                  <div class="form-group mb-2">
+                                      <label class="fs-6" for="">Pharmacy Name</label>
+                                      <input type="text" class="form-control" name="" id="">
+                                  </div>
+                                  <div class="form-group mb-2">
+                                      <label class="fs-6" for="">Pharmacy Address</label>
+                                      <input type="text" class="form-control" name="" id="">
+                                  </div>                    
+                                  <div class="form-group mb-2">
+                                      <label class="fs-6" for="">Phone</label>
+                                      <input type="text" class="form-control" name="" id="">
+                                  </div>
+                                  <div class=" mt-2 mb-2 border p-2">
+                                      <label class="fs-6">Image</label>
+                                      <input class="fs-6" type="file" id="myfile" name="specialist-img">
+                                  </div>
+                                  <div class="form-group mb-2">
+                                      <label class="fs-6" for="">Open Time</label>
+                                      <input type="text" class="form-control" name="" id="">
+                                  </div>
+                                  <div class="form-group mb-2">
+                                    <label class="fs-6" for="">Close Time</label>
+                                    <input type="text" class="form-control" name="" id="">
+                                </div>
+                              </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input class="btn btn-primary" type="submit" name="" id="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button class="btn btn-danger text-white"  data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Delete</button>                     
+                        <!-- Modal -->
+                        <div class="modal fade " id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+                                <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="fs-5">Are you sure you want to delete {{pharmacy.pharmacy_name}}?</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Delete</button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </span>
+
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+          </label> -->
+
+
+        
+
+    </div>
+    {% endblock %}

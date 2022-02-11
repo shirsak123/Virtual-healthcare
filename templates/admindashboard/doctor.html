@@ -1,0 +1,362 @@
+{% extends "adminBase.html"%} {% load static %} 
+{% block content %}
+<title>Doctors</title>
+    {% include 'includes/admin_header.html' %}
+    {% include 'includes/admin_sidebar.html' %}
+    <!--Container Main start-->
+    <div class="pt-5 mt-5" >
+        <div class="row container pb-5">
+            <h3 class="text">List of Doctors</h3>
+            <br>
+        </div>
+        
+
+            <!-- ----------Doctor and appointment---------- -->
+
+            </div>
+            <div class="row pb-2">
+                <div class="">
+                    <table class="table table-hover border" >
+                        <thead>
+                          <tr class="">
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Specialization</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Account Status</th>
+                            <th scope="col">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for doctor in doctor_list %}
+                          <tr>
+                            <th scope="row">
+                                <a href="#" class="name"> <img src="{{doctor.user.doctorprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{doctor.user.first_name}} {{doctor.user.first_name}}</span></a>
+                            </th>
+                            <td class="pt-3">{{doctor.location}}</td>
+                            <td class="pt-3">{{doctor.user.phone_number}}</td>
+                            <td class="pt-3">{{doctor.age}}</td>
+                            <td class="pt-3">{{doctor.specialist.specialist_name}}</td>
+                            <td class="pt-3">{{doctor.user.email}}</td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                
+                            </td>
+
+                            <td class="pt-2" >
+                                <span>
+                                    <button class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Edit</button>                                              
+                                    <!-- Modal -->
+                                    <div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Edit Specialists</h5>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">                                             
+                                             <form>
+                                            <div class="card-body">
+                                              <div class="row">
+                                                <div class="col-md-12">
+                                                    
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                        <label>
+                                                          First Name
+                                                        </label>
+                                                        <input type="text" class="form-control" name="" id="">
+                                                      </div>
+                                                      <div class="form-group col-md-6">
+                                                        <label>
+                                                          Last Name
+                                                        </label>
+                                                        <input type="text" class="form-control" name="" id="">
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label>
+                                                          Location</label>
+                                                          <input type="text" class="form-control" name="" id="">
+                                                    </div>
+                          
+                                                    <div class="form-row">
+                                                      <div class="form-group col-md-6">
+                                                        <label>
+                                                          Phone Number
+                                                        </label>
+                                                        <input type="number" class="form-control" name="" id="">
+                                                      </div>
+                                                      <div class="form-group col-md-6 custom-file">
+                                                        <label>
+                                                          Profile Picture
+                                                        </label>
+                                                        <input class="fs-6" type="file" id="myfile" name="doc-img">
+                                                      </div>
+                                                    </div>
+                          
+                                                   <div class="form-group">
+                                                      <label>
+                                                        Address 1
+                                                      </label>
+                                                      <input type="text" class="form-control" name="" id="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label>
+                                                        Address 2
+                                                      </label>
+                                                      <input type="text" class="form-control" name="" id="">
+                                                    </div>
+                                                    
+                          </div>
+                          </div>
+                          </div>
+                          <div class="card-body">
+                            <h4 class="card-title">About Me</h4>
+                            <div class="form-group mb-0">
+                              <label>
+                          Biography                            
+                              </label>
+                              <textarea name="" id="" cols="45" rows="5"></textarea>
+                            </div>
+                          </div>
+                          
+                          <div class="card">
+                            <div class="card-body">
+                              <h2 class="card-title">Education</h2>
+                              <div class="education-info">
+                                <h3>Edu 1</h3>
+                                <div class="row form-row education-cont">
+                                  <div class="col-12 col-md-10 col-lg-11">
+                                    <div class="row form-row">
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Degree</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>College/Institute</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Start Year</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Year of Completion</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h3>Edu 2</h3>
+                                <div class="row form-row education-cont">
+                                  <div class="col-12 col-md-10 col-lg-11">
+                                    <div class="row form-row">
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Degree</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>College/Institute</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Start Year</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Year of Completion</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                        </div> 
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          
+                              
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">Experience</h4>
+                              <div class="experience-info">
+                                <h3>Past Experience</h3>
+                                <div class="row form-row experience-cont">
+                                  <div class="col-12 col-md-10 col-lg-11">
+                                    <div class="row form-row">
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Hospital Name</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                     </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Designation</label>
+                                          <input type="text" class="form-control" name="" id=""> 
+                                        </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>From</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                                   </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>To</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                                      </div> 
+                                      </div>
+                          
+                                     
+                          
+                                    </div>
+                                  </div>
+                                </div>
+                                <h3>Past Experience</h3>
+                                <div class="row form-row experience-cont">
+                                  <div class="col-12 col-md-10 col-lg-11">
+                                    <div class="row form-row">
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Hospital Name</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                     </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>Designation</label>
+                                          <input type="text" class="form-control" name="" id=""> 
+                                        </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>From</label>
+                                          <input type="text" class="form-control" name="" id=""> 
+                                                   </div> 
+                                      </div>
+                          
+                                      <div class="col-12 ">
+                                        <div class="form-group">
+                                          <label>To</label>
+                                          <input type="text" class="form-control" name="" id="">
+                                                     </div> 
+                                      </div>
+                          
+                                     
+                          
+                                    </div>
+                                  </div>
+                                </div>
+                          
+                                
+                          
+                          
+                              </div>
+                          
+                            </div>
+                          </div>
+                          
+                          <div class="card-body">
+                            <h4 class="card-title">Services   <i class="fas fa-info-circle" data-toggle="tooltip" title="Please seperate your services with semi-colon;"></i>
+                            </h4>
+                            <div class="form-group mb-0">
+                              <input type="text" class="form-control" name="" id="">
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <h4 class="card-title">Specialization   <i class="fas fa-info-circle" data-toggle="tooltip" title="Please seperate your specialization with semi-colon;"></i>
+                            </h4>
+                            <div class="form-group mb-0">
+                              <input type="text" class="form-control" name="" id=""> 
+                            </div>
+                          </div>
+                          
+                          <input type="submit" value="Save" class="btn btn-primary">
+                          
+                          </form>
+                                     
+
+
+
+                                            </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <input class="btn btn-primary" type="submit" name="" id="">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+            
+                                    <button class="btn btn-danger text-white"  data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Delete</button>                     
+                                    <!-- Modal -->
+                                    <div class="modal fade " id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p class="fs-5 font-weight-bold">Are you sure you want to delete?</p>
+                                            <div class="fs-6">
+                                                <p>Name: {{doctor.user.first_name}} {{doctor.user.first_name}}</p>
+                                                <p>Specialists: {{doctor.specialist.specialist_name}}</p>
+                                                <p>Email: {{doctor.user.email}}</p>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Delete</button>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+            
+                                </span>
+            
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+
+        </div>
+
+
+    </div>
+    <!--Container Main end-->
+    
+    {% endblock %}

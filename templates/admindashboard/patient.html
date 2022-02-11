@@ -1,0 +1,62 @@
+{% extends "adminBase.html"%} {% load static %} 
+{% block content %}
+<title>Patients</title>
+{% include 'includes/admin_header.html' %}
+    {% include 'includes/admin_sidebar.html' %}
+    <div class="pt-5 mt-5" >
+        <div class="row container pb-5">
+            <h3 class="text">List of Patients</h3>
+            <br>
+        </div>
+        
+
+            <!-- ----------Doctor and appointment---------- -->
+
+            </div>
+            <div class="row pb-2">
+                <div class="col ">
+                    <table class="table table-hover border" >
+                        <thead>
+                          <tr class="">
+                            <th scope="col">Patient ID</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col" >Gender</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Last Updated</th>
+                            <th scope="col">Account Status</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patient_list %}
+                          <tr>
+                              <th class="pt-3">{{patient.user.id}}</th>
+                            <th scope="row">
+                                <a href="#" class="name"> <img src="{{patient.user.patientprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{patient.user.first_name}} {{patient.user.last_name}}</span></a>
+                            </th>
+                            <td class="pt-3">{{patient.user.get_gender_display}}</td>
+                            <td class="pt-3">{{patient.user.address}}</td>
+                            <td class="pt-3">{{patient.user.phone_number}}</td>
+                            <td class="pt-3">{{patient.user.updated_at}}</td>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                                
+                            </td>
+
+                           
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+
+        </div>
+
+
+    </div>
+    <!--Container Main end-->
+    {% endblock %}

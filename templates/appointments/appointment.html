@@ -1,0 +1,87 @@
+{% extends "base.html"%} {% load static %} {% block content %}
+<title>Dr. {{docs.user.first_name}} {{docs.user.last_name}}</title>
+<div></div>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+  <!-- Page Content -->
+  <div class="content">
+    {% include "includes/alerts.html" %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="booking-doc-info">
+                <a href="#" class="booking-doc-img">
+                  <img src="{{doc_profile.profile_pic.url}}" alt="User Image" />
+                </a>
+                <div class="booking-info">
+                  <h4>
+                    <a
+                      href="{% url 'doctorDetail' docs.specialist.slug docs.slug %}"
+                      >Dr. {{docs.user.first_name}} {{docs.user.last_name}}</a
+                    >
+                  </h4>
+                  <div class="rating">
+                    <i class="fas fa-star"></i>
+                      <i class="{% if docs.averageReview > 1 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                      <i class="{% if docs.averageReview > 2 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                      <i class="{% if docs.averageReview > 3 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                      <i class="{% if docs.averageReview > 4 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                    
+                    <span class="d-inline-block average-rating">({{docs.totalRating}})</span>
+                  </div>
+                  <p class="text-muted mb-0">
+                    <i class="fas fa-map-marker-alt"></i> {{docs.location}},
+                    Nepal
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form action="{% url 'doctorAppointment' docs.specialist.slug docs.slug %}" method="POST">
+          {% csrf_token %}
+            <div class="row">
+            <div class="col-12 col-sm-4 col-md-6">
+              <h4 class="mb-1">Time:</h4>
+              <div class="mb-4">{{appointment.app_time}}</div>
+            </div>
+            <div class="col-12 col-sm-8 col-md-6 text-sm-right">
+              <h4 class="mb-1 text-left">Date:</h4>
+              {{appointment.app_date}}
+            </div>
+          </div>
+          <!-- Schedule Widget -->
+          <div class="card booking-schedule schedule-widget">
+            <!-- Schedule Header -->
+            <div class="schedule-header">
+              <div class="row">
+                <div class="col-md-12">
+                  {{appointment.note_title}} {{appointment.note_body}}
+                </div>
+              </div>
+            </div>
+            <!-- /Schedule Header -->
+          </div>
+          <!-- /Schedule Widget -->
+
+          <!-- Submit Section -->
+          <div class="submit-section proceed-btn text-right">
+            <input
+              type="submit"
+              value="Book Appointment"
+              class="btn btn-primary submit-btn"
+            />
+          </div>
+          <!-- /Submit Section -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+</div>
+<script></script>
+
+{% endblock %}

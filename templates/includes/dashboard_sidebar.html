@@ -1,0 +1,110 @@
+{% load static %}
+<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+  <div class="profile-sidebar">
+    <div class="widget-profile pro-widget-content">
+      <div class="profile-info-widget">
+        <a href="#" class="booking-doc-img">
+          {% if user.patientprofile.profile_pic %}
+          <img src="{{user.patientprofile.profile_pic.url}}" alt="User Image" />
+          {% else %}
+          <img src="{{user.doctorprofile.profile_pic.url}}" alt="User Image">
+                    {% endif %}
+
+        </a>
+        <div class="profile-det-info">
+          <h3>{{user.first_name}} {{user.last_name}}</h3>
+          <div class="patient-details">
+            <h5><i class="far fa-envelope"></i> {{user.email}}</h5>
+            <h5><i class="fas fa-birthday-cake"></i> {{user.dob}}</h5>
+
+            <h5 class="mb-0">
+              <i class="fas fa-map-marker-alt"></i> {% if user.is_doctor %}
+              {{user.doctor.location}} {% else %} {{user.address}}{% endif %}, Nepal
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-widget">
+      <nav class="dashboard-menu">
+        {% if request.user.is_patient %}
+        <ul>
+          <li class="{% if '/dashboard/' in request.path %}active{% endif %}">
+            <a href="{% url 'dashboard' %}">
+              <i class="fas fa-columns"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li
+            class="{% if '/myAppointment/' in request.path %}active{% endif %}"
+          >
+            <a href="{% url 'myAppointment' %}">
+              <i class="far fa-calendar-check"></i><span>My Appointments</span>
+            </a>
+          </li>
+
+          <li class="{% if '/editProfile/' in request.path %}active{% endif %}">
+            <a href="{% url 'editProfile' %}">
+              <i class="fas fa-user-cog"></i>
+              <span>Profile Settings</span>
+            </a>
+          </li>
+          <li
+            class="{% if '/changePassword/' in request.path %}active{% endif %}"
+          >
+            <a href="{% url 'changePassword' %}">
+              <i class="fas fa-lock"></i>
+              <span>Change Password</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+        {% else %}
+        <ul>
+          <li class="{% if '/dashboard/' in request.path %}active{% endif %}">
+            <a href="{% url 'dashboard' %}">
+              <i class="fas fa-columns"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li
+            class="{% if '/mypatients/' in request.path %}active{% endif %}"
+          >
+            <a href="{% url 'myPatients' %}">
+              <i class="far fa-calendar-check"></i><span>My Patients</span>
+            </a>
+          </li>
+
+          <li class="{% if '/editProfile/' in request.path %}active{% endif %}">
+            <a href="{% url 'editProfile' %}">
+              <i class="fas fa-user-cog"></i>
+              <span>Profile Settings</span>
+            </a>
+          </li>
+          <li
+            class="{% if '/changePassword/' in request.path %}active{% endif %}"
+          >
+            <a href="{% url 'changePassword' %}">
+              <i class="fas fa-lock"></i>
+              <span>Change Password</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+</div>

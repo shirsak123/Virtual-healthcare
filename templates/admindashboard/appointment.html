@@ -1,0 +1,92 @@
+{% extends "adminBase.html"%} {% load static %} {% block content %}
+<title>Appointments</title>
+{% include 'includes/admin_header.html' %} {% include 'includes/admin_sidebar.html' %}
+<!--Container Main start-->
+<div class="pt-5 mt-3">
+  <div class="row container pb-5">
+    <h2 class="text">Appointment</h2>
+    <br />
+  </div>
+
+  <div class="row pb-2">
+    <div class="row pb-2">
+      <div class="col">
+        <table class="table table-hover border">
+          <thead>
+            <tr class="">
+              <th scope="col">Doctor Name</th>
+              <th scope="col">Patient Name</th>
+              <th scope="col">Patient Note</th>
+              <th scope="col">Dotor Note</th>
+              <th scope="col">Appointment Date</th>
+              <th scope="col">Appointment Time</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for appointment in appointment_list %}
+            <tr>
+              <th scope="row">
+                <a href="#" class="name">
+                  <img
+                    src="{{appointment.doctor_app.user.doctorprofile.profile_pic.url}}"
+                    width="40px"
+                    class="rounded-circle"
+                    alt=""
+                  /><span class="m-3"
+                    >Dr. {{appointment.doctor_app.user.first_name}}
+                    {{appointment.doctor_app.user.last_name}}</span
+                  ></a
+                >
+              </th>
+              <td class="pt-3">Mark</td>
+              <th scope="row">
+                <a href="#" class="name">
+                  <img
+                    src="{{appointment.patient_app.user.patientprofile.profile_pic.url}}"
+                    width="40px"
+                    class="rounded-circle"
+                    alt=""
+                  /><span class="m-3"
+                    >{{appointment.patient_app.user.first_name}}
+                    {{appointment.patient_app.user.last_name}}</span
+                  ></a
+                >
+              </th>
+              <td class="pt-3">{% if appointment.status == 'confirm' %}{{appointment.reply_note}}{% else %}-{% endif %}</td>
+              <td class="pt-3">{{appointment.app_date}}</td>
+              <td class="pt-3">{{appointment.app_time}}</td>
+              <td class="pt-3">{% if appointment.status == "confirm" %}
+                <span
+                  class="badge bg-success"
+                  >{{appointment.status}}</span
+                >
+                {% elif appointment.status == "pending" %}
+                <span
+                  class="badge bg-warning"
+                  >{{appointment.status}}</span
+                >
+                {% else %}
+                <span
+                  class="badge bg-danger"
+                  >{{appointment.status}}</span
+                >
+                {% endif %}</td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" checked />
+                  <span class="slider round"></span>
+                </label>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--Container Main end-->
+
+  {% endblock %}
+</div>

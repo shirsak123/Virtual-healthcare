@@ -1,0 +1,17 @@
+{% load static %}
+<div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+        <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Virtual Health Care</span> </a>
+            <div class="nav_list">
+                <a href="{% url 'adminHome' %}" class="nav_link {% if request.path == '/admindashboard/' %}active{% endif %}"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> 
+                <a href="{% url 'adminPatient' %}" class="nav_link {% if '/patients/' in request.path %}active{% endif %}"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Patients</span> </a> 
+                <a href="{% url 'adminSpecialists' %}" class="nav_link {% if '/specialists/' in request.path %}active{% endif %}"> <i class='far fa-id-badge nav_icon'></i> <span class="nav_name">Specialists</span> </a> 
+                <a href="{% url 'adminDoctors' %}" class="nav_link {% if '/doctors/' in request.path %}active{% endif %}"> <i class='bx bx-user-plus nav_icon'></i> <span class="nav_name">Doctors</span> </a> 
+                <a href="{% url 'adminReviews' %}" class="nav_link {% if '/reviews/' in request.path %}active{% endif %}"> <i class='bx bx-star nav_icon'></i> <span class="nav_name">Reviews</span> </a> 
+                <a href="{% url 'adminAppointments' %}" class="nav_link {% if '/appointments/' in request.path %}active{% endif %}"> <i class='far fa-calendar nav_icon'></i> <span class="nav_name">Appointment</span> </a> 
+                <a href="{% url 'adminAdmins' %}" class="nav_link {% if '/admins/' in request.path %}active{% endif %}"> <i class='fas fa-user-shield nav_icon'></i> <span class="nav_name">Admin</span> </a> 
+                <a href="{% url 'adminPharmacies' %}" class="nav_link {% if '/pharmacies/' in request.path %}active{% endif %}"> <i class=' fas fa-prescription-bottle-alt nav_icon'></i> <span class="nav_name">Pharmacy</span> </a> 
+            </div>
+        </div> <a href="{% url 'logout' %}" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+    </nav>
+</div>

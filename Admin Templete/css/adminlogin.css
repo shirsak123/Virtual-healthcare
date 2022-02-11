@@ -1,0 +1,14 @@
+
+/* ----------Login---------- */
+.login{
+    position: absolute;
+    top: 5vh;
+    left: 34vh;
+    border-radius: 30px;
+    box-shadow: 2px 6px 15px rgb(105, 102, 102);
+    padding: 90px;
+    background-color: #F7F6FB;
+    
+
+}
+

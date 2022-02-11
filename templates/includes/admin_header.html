@@ -1,0 +1,20 @@
+{% load static %}  
+<header class="header" id="header">
+    <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+    <ul>
+        <li class="nav-item dropdown pt-4 m-4">
+            <a class="nav-link dropdown-toggle w-25" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #1B5A90;">
+              <span class="">
+                  <img src="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" class="rounded-circle" width="41"  alt="">
+              </span>
+              {{user.email}}
+
+            </a>
+            <ul class="dropdown-menu text-center w-25 m-5 mt-0" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </li>
+    </ul>
+
+</header>

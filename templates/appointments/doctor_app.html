@@ -1,0 +1,111 @@
+{% extends "base.html"%} {% load static %} {% block content %}
+<title>{{pats.user.first_name}} {{pats.user.last_name}}</title>
+<div></div>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+  <!-- Page Content -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="booking-doc-info">
+                <a href="#" class="booking-doc-img">
+                  <img src="{{pat_profile.profile_pic.url}}" alt="User Image" />
+                </a>
+                <div class="booking-info">
+                  <h4>
+                    <a href="#"
+                      >{{pats.user.first_name}} {{pats.user.last_name}}</a
+                    >
+                  </h4>
+                  <div class="rating">{{pats.user.get_gender_display}}</div>
+                  <p class="text-muted mb-0">
+                    <i class="fas fa-map-marker-alt"></i> {{pats.user.address}},
+                    Nepal
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form action="{% url 'appDetailPatient' pats.slug apps.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12 col-sm-4 col-md-6">
+                <h4 class="mb-1">Time:</h4>
+                <div class="mb-4">{{apps.app_time}}</div>
+              </div>
+              <div class="col-12 col-sm-8 col-md-6 text-sm-right">
+                <h4 class="mb-1">Date:</h4>
+                {{apps.app_date}}
+              </div>
+            </div>
+            <!-- Schedule Widget -->
+            <div class="card booking-schedule schedule-widget">
+              <!-- Schedule Header -->
+              <div class="schedule-header">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Title:</h3>
+                    <h5>{{apps.note_title}}</h5>
+                  </div>
+                  <div class="col-md-12 mt-4">
+                    <h3>Description:</h3>
+                    <h5>{{apps.note_body}}</h5>
+                  </div>
+                </div>
+                {% if app.instance.status == "pending" %}
+                <div class="row">
+                  <div class="col-md-12 mt-4">
+                    <h3>Reply Note:</h3>
+                    {{app.reply_note}}
+                  </div>
+                </div>
+              </div>
+              <!-- /Schedule Header -->
+            </div>
+            <!-- /Schedule Widget -->
+
+            <!-- Submit Section -->
+            <div class="d-flex justify-content-between">
+              <div class="submit-section proceed-btn text-right">
+                <input
+                  type="submit"
+                  value="Accept"
+                  name="accept"
+                  class="btn btn-primary submit-btn"
+                />
+              </div>
+              <div class="submit-section proceed-btn text-left">
+                <input
+                  type="submit"
+                  name="decline"
+                  value="Decline"
+                  class="btn btn-danger submit-btn"
+                />
+              </div>
+            </div>
+            {% else %}
+            <div class="row">
+              <div class="col-md-12 mt-4">
+                <h3>Reply Note:</h3>
+                {{apps.reply_note}}
+              </div>
+            </div>
+            {% endif %}
+            <!-- /Submit Section -->
+            <div class="d-none">
+              {{app.app_date}} {{app.app_time}} {{app.note_title}}
+              {{app.note_body}}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+</div>
+
+{% endblock %}

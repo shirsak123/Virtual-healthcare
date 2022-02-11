@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<title>Edit Profile</title>
+
+      <!-- Page Content -->
+      <div class="content">
+        {% include 'includes/alerts.html' %}
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Profile Sidebar -->
+       {% include 'includes/dashboard_sidebar.html' %}
+            <!-- / Profile Sidebar -->
+
+            <div class="col-md-7 col-lg-8 col-xl-9">
+              <div class="card">
+                <div class="card-body pt-0">
+                  <!-- Tab Menu -->
+                  <nav class="user-tabs mb-4">
+                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          href="assets/#pat_appointments"
+                          data-toggle="tab"
+                          >Edit Your Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                  <!-- /Tab Menu -->
+
+                  <!-- Tab Content -->
+                  <form action="{% url 'editProfile' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                          
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>
+                                First Name
+                              </label>
+                              {{user_form.first_name}}
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>
+                                Last Name
+                              </label>
+                              {{user_form.last_name}}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>
+                                Location</label>
+                            {{user_form.address}}
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>
+                                Phone Number
+                              </label>
+                              {{user_form.phone_number}}
+                            </div>
+                            <div class="form-group col-md-6 custom-file">
+                              <label>
+                                Profile Picture
+                              </label>
+                              {{doctor_form.profile_pic}}
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                            <label>
+                              Address 1
+                            </label>
+                            {{doctor_form.address_1}}
+                          </div>
+                          <div class="form-group">
+                            <label>
+                              Address 2
+                            </label>
+                            {{doctor_form.address_2}}
+                          </div>
+                          
+</div>
+</div>
+</div>
+<div class="card-body">
+  <h4 class="card-title">About Me</h4>
+  <div class="form-group mb-0">
+    <label>
+Biography                            </label>
+    {{doctor_form.about_me}}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title">Education</h2>
+    <div class="education-info">
+      <h3>Edu 1</h3>
+      <div class="row form-row education-cont">
+        <div class="col-12 col-md-10 col-lg-11">
+          <div class="row form-row">
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Degree</label>
+                {{doctor_form.education1}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>College/Institute</label>
+                {{doctor_form.university1}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Start Year</label>
+                {{doctor_form.from_year1}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Year of Completion</label>
+                {{doctor_form.to_year1}}
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>Edu 2</h3>
+      <div class="row form-row education-cont">
+        <div class="col-12 col-md-10 col-lg-11">
+          <div class="row form-row">
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Degree</label>
+                {{doctor_form.education2}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>College/Institute</label>
+                {{doctor_form.university2}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Start Year</label>
+                {{doctor_form.from_year2}}
+              </div> 
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Year of Completion</label>
+                {{doctor_form.to_year2}}
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Experience</h4>
+    <div class="experience-info">
+      <h3>Past Experience</h3>
+      <div class="row form-row experience-cont">
+        <div class="col-12 col-md-10 col-lg-11">
+          <div class="row form-row">
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Hospital Name</label>
+{{doctor_form.place_1}}   
+           </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Designation</label>
+                {{doctor_form.professtion_title1}}   
+              </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>From</label>
+                {{doctor_form.professtion_from_year1 }}             </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>To</label>
+                {{doctor_form.professtion_to_year1}}              </div> 
+            </div>
+
+           
+
+          </div>
+        </div>
+      </div>
+      <h3>Past Experience</h3>
+      <div class="row form-row experience-cont">
+        <div class="col-12 col-md-10 col-lg-11">
+          <div class="row form-row">
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Hospital Name</label>
+{{doctor_form.place_2}}   
+           </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>Designation</label>
+                {{doctor_form.professtion_title2}}   
+              </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>From</label>
+                {{doctor_form.professtion_from_year2 }}             </div> 
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label>To</label>
+                {{doctor_form.professtion_to_year2}}              </div> 
+            </div>
+
+           
+
+          </div>
+        </div>
+      </div>
+
+      
+
+
+    </div>
+
+  </div>
+</div>
+
+<div class="card-body">
+  <h4 class="card-title">Services   <i class="fas fa-info-circle" data-toggle="tooltip" title="Please seperate your services with semi-colon;"></i>
+  </h4>
+  <div class="form-group mb-0">
+    {{doctor_form.services}}
+  </div>
+</div>
+<div class="card-body">
+  <h4 class="card-title">Specialization   <i class="fas fa-info-circle" data-toggle="tooltip" title="Please seperate your specialization with semi-colon;"></i>
+  </h4>
+  <div class="form-group mb-0">
+    {{doctor_form.specialization}}
+  </div>
+</div>
+
+<input type="submit" value="Save" class="btn btn-primary">
+
+</form>
+                  <!-- Tab Content -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Content -->
+    </div>
+    <!-- /Main Wrapper -->
+
+{% endblock %}
+
+
+
+

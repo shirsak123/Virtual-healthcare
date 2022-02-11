@@ -1,0 +1,147 @@
+{% extends "base.html"%} {% load static %} {% block content %}
+<title>Pharmacies</title>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+  <!-- Page Content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+          <!-- Search Filter -->
+          <div class="card search-filter">
+            <div class="card-header">
+              <h4 class="card-title mb-0">Search Filter</h4>
+            </div>
+            <div class="card-body">
+              <div class="filter-widget">
+                <label>Location</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Select Location"
+                />
+              </div>
+              <div class="filter-widget">
+                <h4>Categories</h4>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" />
+                    <span class="checkmark"></span> Popular
+                  </label>
+                </div>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" />
+                    <span class="checkmark"></span> Latest
+                  </label>
+                </div>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" />
+                    <span class="checkmark"></span> Ratings
+                  </label>
+                </div>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" />
+                    <span class="checkmark"></span> Availability
+                  </label>
+                </div>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" checked />
+                    <span class="checkmark"></span> Open 24 Hrs
+                  </label>
+                </div>
+                <div>
+                  <label class="custom_check">
+                    <input type="checkbox" name="gender_type" />
+                    <span class="checkmark"></span> Home Delivery
+                  </label>
+                </div>
+              </div>
+
+              <div class="btn-search">
+                <button type="button" class="btn btn-block">Search</button>
+              </div>
+            </div>
+          </div>
+          <!-- /Search Filter -->
+        </div>
+
+        <div class="col-md-12 col-lg-8 col-xl-9">
+          <!-- Doctor Widget -->
+            {% for p in pharmacy %}
+            <div class="card">
+                <div class="card-body">
+                  <div class="doctor-widget">
+                    <div class="doc-info-left">
+                      <div class="doctor-img mt-4">
+                        <a href="#">
+                          <img
+                            src="{{p.photo.url}}"
+                            class="img-fluid"
+                            alt="Pharmacy Image"
+                          />
+                        </a>
+                      </div>
+                      <div class="doc-info-cont">
+                        <h4 class="doc-name mb-2">
+                          <a href="#">{{p.pharmacy_name}}</a>
+                        </h4>
+                        <div class="rating mb-2">
+                          <span class="badge badge-primary">{{p.rating}}</span>
+                          <i class="fas fa-star"></i>
+                          <i class="{% if p.rating > 1 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                          <i class="{% if p.rating > 2 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                          <i class="{% if p.rating > 3 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                          <i class="{% if p.rating > 4 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+
+                          
+                          <span class="d-inline-block average-rating">(1)</span>
+                        </div>
+                        <div class="clinic-details">
+                          <div class="clini-infos pt-3">
+                            <p class="doc-location mb-2">
+                              <i class="fas fa-phone-volume mr-1"></i> {{p.phone_number}}
+                            </p>
+                            <p class="doc-location mb-2 text-ellipse">
+                              <i class="fas fa-map-marker-alt mr-1"></i> {{p.address}}
+                            </p>
+                            <p class="doc-location mb-2">
+                              <i class="fas fa-chevron-right mr-1"></i> Opens at {{p.opens_at}}
+                            </p>
+    
+                            <p class="doc-location mb-2">
+                              <i class="fas fa-chevron-right mr-1"></i> Closes at {{p.closes_at}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="doc-info-right">
+                      <div class="clinic-booking">
+                        <a class="view-pro-btn" href="#"
+                          >View Details</a
+                        >
+                        <a class="apt-btn" href="#"
+                          >Browse Products</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+</div>
+<!-- /Main Wrapper -->
+
+{% endblock %}

@@ -1,0 +1,358 @@
+{% extends "base.html"%} {% load static %} 
+{% block content %}
+<title>Home</title>
+<div class="container-fluid bg-body">
+  <div class="text-center pt-5 mb-5" style="position: relative">
+    <h1>Search Doctor, Make an Appointment</h1>
+    <p class="search-text">
+      Discover the best doctors, clinic & hospital the city nearest to you
+    </p>
+  </div>
+  <form action="{% url 'search' %}" method="GET">
+    <div id="search-location-box" class="row w-75 m-auto">
+      <div class="box col-md-5 d-flex align-items-center w-100">
+        <i class="fas fa-map-marker-alt mr-2"></i>
+        <select class="p-2 select form-control m-2" id="location" name="location" form="">
+          <option value="Kathmandu">Kathmandu</option>
+        </select>
+      </div>
+      <div class="box float-left col-md-5 d-flex align-items-center" style="width: 100%">
+        <i class="fas fa-search" ></i>
+        <input
+          type="text"
+          name="specialist_name"
+          placeholder="Search Specialist"
+          class="form-control m-2 col-sm-0"
+          list="specialist"
+        />
+        <datalist id="specialist" class="form-label">
+          {% for i in specialist %}
+          <option value="{{i.specialist_name}}">
+            {% endfor %}
+        </datalist>
+      </div>
+      {% if user.is_patient %}
+        <button class="btn btn-primary  mx-2 pt-0 pb-0 mt-3 mb-3" type="submit">
+          <i class="fas fa-search"></i> Search
+        </button>
+      {% else %}
+      <i
+            class="fas fa-info-circle"
+            data-toggle="tooltip"
+            title="It seems like you are registered as Doctor"
+          ></i>
+      {% endif %}
+    </div>
+  </form>
+</div>
+<div>
+  <img
+    src="{% static 'images/homeAfter/search-bg.png' %}"
+    class="search-img img-responsive"
+    alt=""
+  />
+</div>
+<div class="text-center pt-5 pb-5">
+  <h1 class="browse-by">BROWSE BY SPECIALITIES</h1>
+</div>
+
+<div class="container align-items-center ">
+  <div class="row ">
+    {% for i in specialist %}
+    <a class="col-md-4 mt-5 col-sm-3 " href="/search/?location=Kathmandu&specialist_name={{i.specialist_name}}">
+      <div class="card border-0 m-auto" style="width: 16rem">
+        <img
+          src="{% static 'images/homeAfter/clinic-1.jpg' %}"
+          class="card-img-top card-transistion img-fluid img-responsive rounded"
+          alt="..."
+        />
+        <div class="card-body cover">
+          <div class="icon">
+            <img
+              class="pl-4"
+              src="{% static 'images/homeAfter/1.png' %}"
+              alt=""
+            />
+          </div>
+          <div class="text-white text-center title m-auto">
+            <h3 id="specialist-name">{{i.specialist_name}}</h3>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+
+  </div>
+
+  <div class="uppercase text-center pt-5">
+    <h1 class="">Our Best Doctors</h1>
+  </div>
+
+  <div class="container mx-auto mt-4 ">
+    <div class="row">
+      {% for docs in sorted_doc %}
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem">
+          <img
+            src="{{docs.user.doctorprofile.profile_pic.url}}"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h2 class="mb-1 overflow-hidden" style="height: 2rem ;">Dr. {{docs.user.first_name}} {{docs.user.last_name}}</h2>
+            <p class="text-secondary mb-1">{{docs.user.doctorprofile.education1}} - {{docs.user.doctorprofile.professtion_title1}}</p>
+            <p class="doc-department"><i class="fas fa-user-md img-fluid"></i> {{docs.specialist}}</p>
+            
+            <div class="rating">
+              <i class="fas fa-star"></i>
+                                    <i class="{% if docs.averageReview > 1 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 2 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 3 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 4 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+              
+              <span class="d-inline-block average-rating">({{docs.totalRating}})</span>
+            </div>
+            <p class="card-text mb-1">
+            <i class="fas fa-map-marker-alt"></i>
+            {{docs.location}}, Nepal
+            </p>
+
+            <a href="{% url 'doctorDetail' docs.specialist.slug docs.slug %}"
+            class="btn mr-2 border-info">View Profile</a>
+            {% if docs.appointed %}
+            <a href="{% url 'appointmentDetails' docs.specialist.slug docs.slug docs.pp %}" class="btn btn-info">Appointed</a>
+            {% else %}
+            <a href="{% url 'doctorAppointment' docs.specialist.slug docs.slug  %}" class="btn btn-info">Book Now</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+<hr />
+<div class="question-margin container">
+  <h1 class="text-center p-5">Frequently Asked Questions</h1>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample1"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample1"
+      >
+        Q: How do I book an appointment?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample1"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample1"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample1">
+      <div class="card card-body">
+        After logined-in with your account browse doctor 
+        by specialist and select button Book Now. Fill in the fields by 
+        providing time, date, title, and descriription and select button Book Appointment.
+
+      </div>
+    </div>
+    <hr />
+  </div>
+
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample2"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: Will I talk to someone after I request for an appointment?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample2"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample2">
+      <div class="card card-body">
+        When you book an appointment, your request is sent to the respected doctor. After doctor confirms the request then you are allowed to 
+        talk to the doctor.
+        
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample3"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: Can I book an appointment by selecting a spaciality?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample3"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample3">
+      <div class="card card-body">
+        Yes you can select a specialist but you need to specify atleast one doctor and book an appointment.
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample4"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: What are the advantages of booking an appointment online?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample4"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample4">
+      <div class="card card-body">
+        Here are the advantages of booking an online appointment :-
+        <br>
+        <ul>
+          <li>It is most save approach to chat with the doctor in present situation</li>
+          <li>Saves time and money</li>
+          <li>You can book an appointment based on users review</li>
+          <li>You can can communicate through videocall and chat feature</li>
+          <li>You can review to the doctor after an appointment</li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample5"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: What details are required to make an appointment online?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample5"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample5">
+      <div class="card card-body">
+        First of all you need to Login/Register to an account. Find the doctor you want to make an appointment with. fill the required fields such as
+        provide date and time for appointment and title and description to explain your illness.
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample6"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: What payment do i have?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample6"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample6">
+      <div class="card card-body">
+        Payment method is under developing phase...
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <h5>
+      <a
+        class="questions"
+        data-bs-toggle="collapse"
+        href="#collapseExample7"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Q: Can I book multiple appointment at once?
+        <em
+          class="fa fa-plus float-right"
+          data-bs-toggle="collapse"
+          href="#collapseExample7"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        ></em>
+      </a>
+    </h5>
+
+    <div class="collapse" id="collapseExample7">
+      <div class="card card-body">
+        You can book one appointment at a time. If the appointment is rejected that you can book an appointment with another doctor.
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+
+{% endblock %}

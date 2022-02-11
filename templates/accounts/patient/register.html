@@ -1,0 +1,131 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<title>Patient Registration</title>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <!-- Register Content -->
+        <div class="account-content">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7 col-lg-6 login-left">
+              <img
+                src="{% static 'images/signup.png' %}"
+                class="img-fluid"
+                alt="Register"
+              />
+            </div>
+            <div class="col-md-12 col-lg-6 login-right">
+              <div class="login-header d-flex justify-content-between">
+                <h2>Patient Register</h2>
+                <a href="{% url 'registerDoctor' %}">Are you a doctor?</a>
+              </div>
+              {% include "includes/alerts.html" %}
+
+              <!-- Register Form -->
+              <form
+                action="{% url 'register' %}"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                {% csrf_token %}
+                 
+                <div class="form-group">
+                  <label class="focus-label" >First Name</label>
+                  <div class="form-group">
+                    {{form.first_name}}
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="focus-label">Last Name</label>
+                  <div class="form-group">
+                    {{form.last_name}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Email</label>
+                  <div class="form-group">
+                    {{form.email}}
+                  </div>
+                </div>
+                
+
+                <div class="form-group">
+                  <label class="focus-label">Password</label>
+                  <div class="form-group ">
+                    {{form.password1}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Repeat Password</label>
+                  <div class="form-group ">
+                    {{form.password2}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Phone Number</label>
+                  <div class="form-group">
+                    {{form.phone_number}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Gender :</label>
+                  <div class="form-group">
+                    {{form.gender}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Your Birthday</label>
+                  <div class="form-group">
+                    <div class="form-group ">
+                      {{form.dob}}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="focus-label">Location</label>
+                  <div class="form-group ">
+                    {{form.address}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="focus-label">Blood Group</label>
+                  <div class="form-group ">
+                    {{form.blood}}
+                  </div>
+                </div>
+                {{ form.email.errors }} {{ form.password2.errors }}
+                <div class="text-right">
+                  <a class="forgot-link" href="{% url 'login' %}"
+                    >Already have an account?</a
+                  >
+                </div>
+                <button
+                  class="btn btn-primary btn-block btn-lg login-btn text-dark"
+                  type="submit"
+                  style="background-color: #09e5ab; border: 1px solid #09e5ab"
+                >
+                  Signup
+                </button>
+              </form>
+              <!-- /Register Form -->
+            </div>
+          </div>
+        </div>
+        <!-- /Register Content -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->
+{% endblock %}

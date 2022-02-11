@@ -1,0 +1,1 @@
+web: gunicorn OnlineAppointment.wsgi --log-file -

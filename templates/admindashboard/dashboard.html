@@ -1,0 +1,186 @@
+{% extends "adminBase.html"%} {% load static %} 
+{% block content %}
+<title>Dashboard</title>
+    {% include 'includes/admin_header.html' %}
+    {% include 'includes/admin_sidebar.html' %}
+
+    <!--Container Main start-->
+    <div class="pt-5 mt-4" >
+        <div class="row container-fluid pb-5">
+            <h1 class="text">Welcome {{user.first_name}}</h1>
+            <br>
+            <p class="text-info h3">Dashboard</p>
+            <div class="col-3">
+                <div class="card mx-sm-0 mx-md-5" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="col-6 pt-4">{{ doctor_count }}</h3>
+                            <span class="image group1 col-6">
+                                <i class="fas fa-user-friends "></i>
+                            </span>
+
+                        </div>
+                        <h5 class="card-subtitle mb-2 mt-1 text-muted">Doctors</h5>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-3">
+                <div class="card  mx-sm-0 mx-md-5" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="col-6 pt-4">{{ patient_count }}</h3>
+                            <span class="image group2 col-6">
+                                <i class="fas fa-address-card "></i>
+                            </span>
+                        </div>
+                        <h5 class="card-subtitle mb-2 mt-1 text-muted">Patients</h5>
+
+                    </div>
+                    </div>
+            </div>
+            <div class="col-3">
+                <div class="card  mx-sm-0 mx-md-5" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="col-6 pt-4">{{ appointment_count }}</h3>
+                            <span class="image group3 col-6">
+                                <i class="fas fa-calendar-check "></i>
+                            </span>
+
+                        </div>
+                        <h5 class="card-subtitle mb-2 mt-1 text-muted">Appointments</h5>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-3">
+                <div class="card  mx-sm-0 mx-md-5" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="col-6 pt-4">{{ review_count }}</h3>
+                            <span class="image group4 col-6">
+                                <i class="fas fa-star "></i>
+                            </span>
+
+                        </div>
+                        <h5 class="card-subtitle mb-2 mt-1 text-muted">Reviews</h5>
+                    </div>
+                    </div>
+            </div>
+
+
+        </div>
+        
+        <div class="row pb-2">
+            <div class="col-6 ">
+                <div class="card" style="width: 41rem;">
+                    <h3 class="p-2 pt-3">Latest Doctors List</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card" style="width: 41rem;">
+                    <h3 class="p-2 pt-3">Latest Patients List</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row pb-2">
+            <div class="col-6 ">
+                <table class="table table-hover border" style="width: 41rem;">
+                    <thead>
+                      <tr class="">
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col" >Speciality</th>
+                        <th scope="col">Reviews</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for doctor in doctor_list %}
+                      <tr>
+                        <th scope="row">
+                            <a href="#" class="name"> <img src="{{doctor.user.doctorprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{doctor.user.first_name}} {{doctor.user.first_name}}</span></a>
+                        </th>
+                        <td class="">{{doctor.specialist.specialist_name}}</td>
+                        <td class="">
+                            <i class="fas fa-star"></i>
+                                    <i class="{% if doctor.averageReview > 1 %} fas fa-star{% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if doctor.averageReview > 2 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if doctor.averageReview > 3 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if doctor.averageReview > 4 %} fas fa-star {% else %}far fa-star{% endif %}"></i>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-hover border" style="width: 41rem;">
+                    <thead>
+                      <tr class="">
+                        <th scope="col">Patient Name Name</th>
+                        <th scope="col" >Phone</th>
+                        <th scope="col">Last Updated</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patient_list %}
+                      <tr>
+                        <th scope="row">
+                            <a href="#" class="name"> <img src="{{patient.user.patientprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{patient.user.first_name}} {{patient.user.last_name}}</span></a>
+                        </th>
+                        <td class="pt-3">{{patient.user.phone_number}}</td>
+                        <td class="pt-3">{{patient.user.updated_at}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+
+
+            <!-- ----------Doctor and appointment---------- -->
+            <div class="row pb-2 pt-4">
+                <div class="col ">
+                    <div class="card" >
+                        <h3 class="p-2 pt-3">Latest Appoinment</h3>
+                    </div>
+                </div>
+
+    
+            </div>
+            <div class="row pb-2">
+                <div class="col ">
+                    <table class="table table-hover border" >
+                        <thead>
+                          <tr class="">
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col" >Speciality</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Appointment Time</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointment_list %}
+                          <tr>
+                            <th scope="row">
+                                <a href="#" class="name"> <img src="{{appointment.doctor_app.user.doctorprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{appointment.doctor_app.user.first_name}} {{appointment.doctor_app.user.first_name}}</span></a>
+                            </th>
+                            <td class="pt-3">{{appointment.doctor_app.specialist.specialist_name}}</td>
+                            <th scope="row">
+                                <a href="#" class="name"> <img src="{{appointment.patient_app.user.patientprofile.profile_pic.url}}" width="40px" class="rounded-circle" alt=""><span class="m-3">{{appointment.patient_app.user.first_name}} {{appointment.patient_app.user.first_name}}</span></a>
+                            </th>
+                            <td class="pt-3">{{appointment.app_date}}</td>
+                            <td class="pt-3 text-info" >{{appointment.app_time}}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+
+        </div>
+
+
+    </div>
+    <!--Container Main end-->
+    {% endblock %}

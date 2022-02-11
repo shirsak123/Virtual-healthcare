@@ -1,0 +1,293 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<title>Dashboard</title>
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-12 col-12">
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Dashboard
+              </li>
+            </ol>
+          </nav>
+          <h2 class="breadcrumb-title">Dashboard</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Breadcrumb -->
+
+  <!-- Page Content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Profile Sidebar -->
+        {% include 'includes/dashboard_sidebar.html' %}
+        <!-- /Profile Sidebar -->
+
+        <div class="col-md-7 col-lg-8 col-xl-9">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card dash-card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-4">
+                      <div class="dash-widget dct-border-rht">
+                        <div class="circle-bar circle-bar1">
+                          <div class="circle-graph1" data-percent="75">
+                            <i class="fas fa-hospital-user h1"></i>
+                          </div>
+                        </div>
+                        <div class="dash-widget-info">
+                          <h6>Total Patient</h6>
+                          <h3>{{apps|length}}</h3>
+                          <p class="text-muted">Till Today</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                      <div class="dash-widget dct-border-rht">
+                        <div class="circle-bar circle-bar2">
+                          <div class="circle-graph2" data-percent="65">
+                            <i class="fas fa-user-check h1"></i>
+                          </div>
+                        </div>
+                        <div class="dash-widget-info">
+                          <h6>Accepted/Declined</h6>
+                          <h3>{{count.canCon}}</h3>
+                          <p class="text-muted">Till Today</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                      <div class="dash-widget">
+                        <div class="circle-bar circle-bar3">
+                          <div class="circle-graph3" data-percent="50">
+                            <i class="far fa-question-circle h1"></i>
+                          </div>
+                        </div>
+                        <div class="dash-widget-info">
+                          <h6>Total Pending</h6>
+                          <h3>{{count.pendingCount}}</h3>
+                          <p class="text-muted">Till Today</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="mb-4">Patient Appoinment</h4>
+              <div class="appointment-tab">
+                <!-- Appointment Tab -->
+                <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      href="#upcoming-appointments"
+                      data-toggle="tab"
+                      >Confirmation Pending</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      href="#today-appointments"
+                      data-toggle="tab"
+                      >Dealt With</a
+                    >
+                  </li>
+                </ul>
+                <!-- /Appointment Tab -->
+
+                <div class="tab-content">
+                  <!-- Upcoming Appointment Tab -->
+                  <div class="tab-pane show active" id="upcoming-appointments">
+                    <div class="card card-table mb-0">
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-center mb-0">
+                            <thead>
+                              <tr>
+                                <th>Patient Name</th>
+                                <th>Appt Date</th>
+                                <th>Purpose</th>
+                                <th>status</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for app in apps %}
+                              {% if app.status == "pending" %}
+                              <tr>
+                                <td>
+                                  <h2 class="table-avatar">
+                                    <a
+                                      href="patient-profile.html"
+                                      class="avatar avatar-sm mr-2"
+                                      ><img
+                                        class="avatar-img rounded-circle"
+                                        src="{{app.patient_app.user.patientprofile.profile_pic.url}}"
+                                        alt="User Image"
+                                    /></a>
+                                    <a href="patient-profile.html"
+                                      >{{app.patient_app.user.first_name}}
+                                      {{app.patient_app.user.last_name}}
+                                      <span
+                                        >{{app.patient_app.user.get_gender_display}}</span
+                                      ></a
+                                    >
+                                  </h2>
+                                </td>
+                                <td>
+                                  {{app.app_date}}
+                                  <span class="d-block text-info"
+                                    >{{app.app_time}}</span
+                                  >
+                                </td>
+                                <td>General</td>
+                                <td>{% if app.status == "confirm" %}
+                                  <span
+                                    class="badge badge-pill bg-success-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% elif app.status == "pending" %}
+                                  <span
+                                    class="badge badge-pill bg-warning-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% else %}
+                                  <span
+                                    class="badge badge-pill bg-danger-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% endif %}</td>
+                                <td class="text-center">$150</td>
+                                <td class="text-right">
+                                  <div class="table-action">
+                                    <a
+                                      href="{% url 'appDetailPatient' app.patient_app.user.patient.slug app.id %}"
+                                      class="btn btn-sm bg-info-light"
+                                    >
+                                      <i class="far fa-eye"></i> View
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                              {% else %}{% endif %}
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Upcoming Appointment Tab -->
+
+                  <!-- Today Appointment Tab -->
+                  <div class="tab-pane" id="today-appointments">
+                    <div class="card card-table mb-0">
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-center mb-0">
+                            <thead>
+                              <tr>
+                                <th>Patient Name</th>
+                                <th>Appt Date</th>
+                                <th>Purpose</th>
+                                <th>Type</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for app in apps %}
+                              {% if app.status != "pending" %}
+                              <tr>
+                                <td>
+                                  <h2 class="table-avatar">
+                                    <a
+                                      href="patient-profile.html"
+                                      class="avatar avatar-sm mr-2"
+                                      ><img
+                                        class="avatar-img rounded-circle"
+                                        src="{{app.patient_app.user.patientprofile.profile_pic.url}}"
+                                        alt="User Image"
+                                    /></a>
+                                    <a href="patient-profile.html"
+                                      >{{app.patient_app.user.first_name}}
+                                      {{app.patient_app.user.last_name}}
+                                      <span
+                                        >{{app.patient_app.user.get_gender_display}}</span
+                                      ></a
+                                    >
+                                  </h2>
+                                </td>
+                                <td>
+                                  {{app.app_date}}
+                                  <span class="d-block text-info"
+                                    >{{app.app_time}}</span
+                                  >
+                                </td>
+                                <td>General</td>
+                                <td>{% if app.status == "confirm" %}
+                                  <span
+                                    class="badge badge-pill bg-success-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% elif app.status == "pending" %}
+                                  <span
+                                    class="badge badge-pill bg-warning-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% else %}
+                                  <span
+                                    class="badge badge-pill bg-danger-light"
+                                    >{{app.status}}</span
+                                  >
+                                  {% endif %}</td>
+                                <td class="text-center">$150</td>
+                                <td class="text-right">
+                                  <div class="table-action">
+                                    <a
+                                      href="{% url 'appDetailPatient' app.patient_app.user.patient.slug app.id %}"
+                                      class="btn btn-sm bg-info-light"
+                                    >
+                                      <i class="far fa-eye"></i> View
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                              {% else %}{% endif %}
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Today Appointment Tab -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+
+  {% endblock %}
+</div>

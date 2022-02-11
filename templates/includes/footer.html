@@ -1,0 +1,32 @@
+{% if request.path == '/accounts/login/' or request.path == '/accounts/dashboard/' %}
+
+{% else %}
+<style>
+  .footer-clean{
+    padding: 10px 0;
+    background-color: #fff;
+    color: #4b4c4d;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+</style>
+{% endif %}
+<hr />
+<!-- footer-->
+<div class="footer-clean" style="background: #15558d">
+  <footer>
+    <div class="container text-white">
+      <div class="row justify-content-center">
+        <div class="col-lg-3 item social">
+          <a href="#"><i class="fab fa-github"></i></a
+          ><a href="#"><i class="fab fa-facebook-f"></i></a
+          ><a href="#"><i class="fab fa-twitter"></i></a
+          ><a href="#"><i class="fab fa-instagram"></i></a>
+          <p class="copyright">Some Teams © 2021</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+

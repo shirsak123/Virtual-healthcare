@@ -1,0 +1,387 @@
+{% extends "base.html"%} {% load static %} {% block content %}
+<title>Dr. {{docs.user.first_name}} {{docs.user.last_name}}</title>
+  <!-- Page Content -->
+    <div class="content">
+        <div class="container">
+
+            <!-- Doctor Widget -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="doctor-widget">
+                        <div class="doc-info-left">
+                            <div class="doctor-img">
+                                <img src="{{doc_profile.profile_pic.url}}" class="img-fluid" alt="User Image">
+                            </div>
+                            <div class="doc-info-cont">
+                                <h4 class="doc-name">Dr. {{docs.user.first_name}} {{docs.user.last_name}}</h4>
+                                <p class="doc-speciality">{{doc_profile.education1}} - {{doc_profile.professtion_title1}}</p>
+                                <p class="doc-speciality">{{docs.user.email}}</p>
+                                <p class="doc-department"><i class="fas fa-user-md img-fluid"></i> {{docs.specialist}}</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="{% if docs.averageReview > 1 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 2 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 3 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    <i class="{% if docs.averageReview > 4 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                                    
+                                    <span class="d-inline-block average-rating">({{docs.totalRating}})</span>
+                                </div>
+                                <div class="clinic-details">
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{docs.location}}, Nepal - <a href="javascript:void(0);">Get Directions</a></p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doc-info-right">
+                            <div class="clini-infos">
+                                <ul>
+                                    <li><i class="far fa-thumbs-up"></i> {{docs.avgLike}}%</li>
+                                    <li><i class="far fa-comment"></i> {{docs.totalRating}} Feedbacks</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> {{docs.location}}, Nepal</li>
+                                </ul>
+                            </div>
+                            <div class="clinic-booking mb-2">
+                                <a class="apt-btn" href="localhost:3000" target="_blank">Get In Touch</a>
+                            </div>
+
+                            <div class="clinic-booking">
+                                {% if app.status == "pending" %}
+                                <a class="apt-btn" href="{% url 'appointmentDetails' docs.specialist.slug docs.slug  %}">View Appointment</a>
+                                {% else %}
+                                <a class="apt-btn" href="{% url 'doctorAppointment' docs.specialist.slug docs.slug  %}">Book Appointment </a>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Doctor Widget -->
+
+            <!-- Doctor Details Tab -->
+            <div class="card">
+                <div class="card-body pt-0">
+
+                    <!-- Tab Menu -->
+                    <nav class="user-tabs mb-4">
+                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#doc_business_hours" data-toggle="tab">Business Hours</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /Tab Menu -->
+
+                    <!-- Tab Content -->
+                    <div class="tab-content pt-0">
+
+                        <!-- Overview Content -->
+                        <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-9">
+
+                                    <!-- About Details -->
+                                    <div class="widget about-widget">
+                                        <h4 class="widget-title">About Me</h4>
+                                                <p>{{doc_profile.about_me}}</p>
+                                                    </div>
+                                    <!-- /About Details -->
+
+                                    <!-- Education Details -->
+                                    <div class="widget education-widget">
+                                        <h4 class="widget-title">Education</h4>
+                                        <div class="experience-box">
+                                            <ul class="experience-list">
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#/" class="name">{{doc_profile.university1}}</a>
+                                                            <div>{{doc_profile.education1}}</div>
+                                                            <span class="time">{{doc_profile.from_year1}} - {{doc_profile.to_year1}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#/" class="name">{{doc_profile.university2}}</a>
+                                                            <div>{{doc_profile.education2}}</div>
+                                                            <span class="time">{{doc_profile.from_year2}} - {{doc_profile.to_year2}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- /Education Details -->
+
+                                    <!-- Experience Details -->
+                                    <div class="widget experience-widget">
+                                        <h4 class="widget-title">Work & Experience</h4>
+                                        <div class="experience-box">
+                                            <ul class="experience-list">
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#/" class="name">{{doc_profile.professtion_title1}}</a>
+                                                            <div>{{doc_profile.place_1}}</div>
+                                                            <span class="time">{{doc_profile.professtion_from_year1}} - {{doc_profile.professtion_to_year1}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#/" class="name">{{doc_profile.professtion_title2}}</a>
+                                                            <div>{{doc_profile.place_2}}</div>
+                                                            <span class="time">{{doc_profile.professtion_from_year2}} - {{doc_profile.professtion_to_year2}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                
+                                               
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- /Experience Details -->
+
+                                   
+
+                                    <!-- Services List -->
+                                    <div class="service-list">
+                                        <h4>Services</h4>
+                                        <ul>
+                                            {% for service in services %}
+                                            <li> <i class="fas fa-angle-double-right"></i> {{service}}</li>
+                                            {% endfor %}
+                                            
+                                        </ul>
+                                    </div>
+                                    <br><hr>
+                                    <div class="service-list">
+                                        <h4>Specialization</h4>
+                                        <ul>
+                                            {% for specialization in specializations %}
+                                            <li> <i class="fas fa-angle-double-right"></i> {{specialization}}</li>
+                                            {% endfor %}
+                                            
+                                        </ul>
+                                    </div>
+                                    <!-- /Services List -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Overview Content -->
+
+
+                        <!-- Reviews Content -->
+                        <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
+
+
+<!-- Write Review -->
+<div class="write-review">
+    <h4>Write a review for <strong>Dr. {{docs.user.first_name}} {{docs.user.last_name}}</strong></h4>
+{% include 'includes/alerts.html' %}
+    <!-- Write Review Form -->
+    <form method="POST" action="{% url 'submitReview' docs.user.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Review</label>  <i
+            class="fas fa-info-circle"
+            data-toggle="tooltip"
+            title="Please Select Star"
+          ></i>
+            <div class="star-rating">
+                <input id="star-5" type="radio" name="rating" required value="5">
+                <label for="star-5" title="5 stars">
+                    <i class="active fa fa-star"></i>
+                </label>
+                <input id="star-4" type="radio" name="rating" required value="4">
+                <label for="star-4" title="4 stars">
+                    <i class="active fa fa-star"></i>
+                </label>
+                <input id="star-3" type="radio" name="rating" required value="3">
+                <label for="star-3" title="3 stars">
+                    <i class="active fa fa-star"></i>
+                </label>
+                <input id="star-2" type="radio" name="rating" required value="2">
+                <label for="star-2" title="2 stars">
+                    <i class="active fa fa-star"></i>
+                </label>
+                <input id="star-1" type="radio" name="rating" required value="1">
+                <label for="star-1" title="1 star">
+                    <i class="active fa fa-star"></i>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Title of your review</label>
+            <input class="form-control" type="text" name="subject" placeholder="If you could say it in one sentence, what would you say?">
+        </div>
+        <div class="form-group">
+            <label>Your review</label>
+            <textarea id="review_desc" name="review" maxlength="500" class="form-control"></textarea>
+        </div>
+        <hr>
+        {% if isbooked%}
+        <div class="submit-section">
+            <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+        </div>
+        {% else %}
+        <p>You must have a confirmed appointment with the doctor to post review</p>
+        {% endif %}
+    </form>
+    <br>
+    <!-- /Write Review Form -->
+
+</div>
+<!-- /Write Review -->
+
+                            <!-- Review Listing -->
+                            <div class="widget review-listing">
+                                <ul class="comments-list">
+
+                                    <!-- Comment List -->
+                                    {% for review in reviews %}
+                                    <li>
+                                        <div class="comment">
+                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{review.review_patient.user.patientprofile.profile_pic.url}}">
+                                            <div class="comment-body">
+                                                <div class="meta-data">
+                                                    <span class="comment-author">{{review.review_patient.user.first_name}} {{review.review_patient.user.last_name}}</span>
+                                                    <span class="comment-date">{{review.updated_at}}</span>
+                                                    
+                                                </div>
+                                                <div class="review-count rating text-left">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star {% if review.rating > 1 %} filled {% else %}{% endif %}"></i>
+                                                    <i class="fas fa-star {% if review.rating > 2 %} filled {% else %}{% endif %}"></i>
+                                                    <i class="fas fa-star {% if review.rating > 3 %} filled {% else %}{% endif %}"></i>
+                                                    <i class="fas fa-star {% if review.rating > 4 %} filled {% else %}{% endif %}"></i>
+                                                    
+                                                </div>
+                                                <p class="recommended">{{review.subject}}</p>
+                                                <p class="comment-content">
+                                                    {{review.review}}
+                                                </p>
+                                            </div>
+                                        </div>
+<hr>
+                                    </li>
+                                    {% endfor %}
+                                    <!-- /Comment List -->
+
+
+                                </ul>
+
+                                <!-- Show All -->
+                                <!-- <div class="all-feedback text-center">
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        Show all feedback <strong>(167)</strong>
+                                    </a>
+                                </div> -->
+                                <!-- /Show All -->
+
+                            </div>
+                            <!-- /Review Listing -->
+                        </div>
+                        <!-- /Reviews Content -->
+
+                        <!-- Business Hours Content -->
+                        <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-md-6 offset-md-3">
+
+                                    <!-- Business Hours Widget -->
+                                    <div class="widget business-widget">
+                                        <div class="widget-content">
+                                            <div class="listing-hours">
+                                                <div class="listing-day current text-center">
+                                                    <div class="day text-center">Approximate Available Time For Doctor</div>
+                                                    
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Monday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Tuesday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Wednesday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Thursday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Friday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day">
+                                                    <div class="day">Saturday</div>
+                                                    <div class="time-items">
+                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="listing-day closed">
+                                                    <div class="day">Sunday</div>
+                                                    <div class="time-items">
+                                                        <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Business Hours Widget -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Business Hours Content -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Doctor Details Tab -->
+
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+
+</div>
+<!-- /Main Wrapper -->
+
+{% endblock %}

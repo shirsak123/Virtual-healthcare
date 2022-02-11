@@ -1,0 +1,203 @@
+{% extends "adminBase.html"%} {% load static %} {% block content %}
+<title>Admins</title>
+{% include 'includes/admin_header.html' %} {% include 'includes/admin_sidebar.html' %}
+    <!--Container Main start-->
+    <div class="pt-5 mt-5" >
+        <div class="container pb-5 ">
+            <h2 class="text">List of Admins 
+                <span>
+                    <button type="button" class="btn btn-primary px-3 py-1 float-end fs-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      Add
+                    </button>
+                </span>
+            </h2>  
+                <!-- Button trigger modal -->
+                
+                <!-- Modal -->
+                <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Admin</h5>
+                        <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="">
+                            <div class="form-group mb-2">
+                                <label for="">First Name</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">Last Name</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>                    
+                            <div class="form-group mb-2">
+                                <label for="">Date of Birth</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>
+                            <div class=" mt-2 mb-2 border p-2">
+                                <label>Image</label>
+                                <input class="fs-6" type="file" id="myfile" name="specialist-img">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="">Mobile</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>                            <div class="form-group mb-2">
+                                <label for="">Address</label>
+                                <input type="text" class="form-control" name="" id="">
+                            </div>                            <div class="form-group mb-2">
+                                <label for="">Description</label>
+                                <textarea name="" class="form-control" id="" cols="15" rows="5"></textarea>
+                                
+                            </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input class="btn btn-primary" type="submit" name="" id="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          
+
+                       
+        </div>
+
+            <!-- ----------Doctor and appointment---------- -->
+
+            </div>
+            <div class="row pb-2">
+                <div class="col ">
+                    <table class="table table-hover border" >
+                        <thead>
+                          <tr class="">
+                            <th scope="col">Name</th>
+                            <th scope="col" >Date of Birth</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Account Status</th>
+                            <th scope="col">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for admin in admin_list %}
+                          <tr>
+                            <th scope="row">
+                                <a href="#" class="name"> <img src="https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png" width="40px" class="rounded-circle" alt=""><span class="m-3">{{admin.first_name}} {{admin.last_name}}</span></a>
+                            </th>
+                            <td class="pt-3">{{admin.dob}}</td>
+                            <td class="pt-3">{{admin.email}}</td>
+                            <td class="pt-3">{{admin.phone_number}}</td>
+                            <td class="pt-3">{{admin.address}}</td>
+                            <td class="pt-3">{{admin.get_gender_display}}</td>
+
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                                
+                            </td>
+
+                            <td class="pt-2" >
+                                <span>
+                                    <button class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Edit</button>                                              
+                                    <!-- Modal -->
+                                    <div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Edit Admin</h5>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form action="">
+                                                <div class="form-group mb-2">
+                                                    <label for="">First Name</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="">Last Name</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>                    
+                                                <div class="form-group mb-2">
+                                                    <label for="">Date of Birth</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>
+                                                <div class=" mt-2 mb-2 border p-2">
+                                                    <label>Image</label>
+                                                    <input class="fs-6" type="file" id="myfile" name="specialist-img">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="">Email</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="">Mobile</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>                            <div class="form-group mb-2">
+                                                    <label for="">Address</label>
+                                                    <input type="text" class="form-control" name="" id="">
+                                                </div>                            <div class="form-group mb-2">
+                                                    <label for="">Description</label>
+                                                    <textarea name="" class="form-control" id="" cols="15" rows="5"></textarea>
+                                                    
+                                                </div>
+                                            </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <input class="btn btn-primary" type="submit" name="" id="">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button class="btn btn-danger text-white {% if user.email == admin.email %}disabled{% endif %}"  data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Delete</button>                     
+                                    <!-- Modal -->
+                                    <div class="modal fade " id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Delete</h5>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p class="fs-5 font-weight-bold">Are you sure you want to delete?</p>
+                                            <div class="fs-6">
+                                                <p>Name: {{admin.first_name}} {{admin.last_name}}</p>
+                                                <p>Phone Number: {{admin.phone_number}}</p>
+                                                <p>Email: {{admin.email}}</p>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Delete</button>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+            
+                                </span>
+            
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+
+        </div>
+
+
+    </div>
+    <!--Container Main end-->
+    {% endblock %}

@@ -1,0 +1,172 @@
+{% extends "base.html"%} {% load static %} {% block content %}
+<title>Search Result</title>
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+  <!-- Page Content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+          <!-- Search Filter -->
+<form action="{% url 'search' %}" method="GET">         
+   <div class="card search-filter">
+            <div class="card-header">
+              <h4 class="card-title mb-0">Search Filter</h4>
+            </div>
+            <div class="card-body">
+              <div class="filter-widget">
+                <div class="sort-by">
+                  <span class="sortby-fliter">
+                    <h4>Sort By</h4>
+                    <select class="select form-control" name="sort_by" id="sort_by">
+                      <option>Select</option>
+                      <option value="gettotal" class="sorting">Total Rating</option>
+                      <option value="getavg" class="sorting">Top Rated</option>
+                      <option value="getavglike" class="sorting">Most Liked</option>
+                    </select>
+                  </span>
+                </div>		
+              </div>
+              <div class="filter-widget">
+                <h4>Gender</h4>
+                <div>
+                  <label class="prabesh mt-0">
+                    <input type="checkbox" id="gender_male" name="gender_type" value="male"/>
+                    <span for="gender_male" class="checkmark"></span> Male Doctor
+                  </label>
+                </div>
+                <div>
+                  <label class="prabesh">
+                    <input type="checkbox" id="gender_female" name="gender_type" value="female"/>
+                    <span for="gender_female" class="checkmark"></span> Female Doctor
+                  </label>
+                </div>
+              </div>
+              <div class="filter-widget">
+                <h4>Select Specialist</h4>
+                <div>
+                  <label class="prabesh">
+                    <input type="checkbox" id="dental_check" name="select_specialist" value="Dental"/>
+                    <label for="dental_check" class="checkmark"></label> Dental
+                  </label>
+                </div>
+                <div>
+                  <label class="prabesh">
+                    <input type="checkbox" id="cardio_check" name="select_specialist" value="Cardiologist"/>
+                    <label for="cardio_check" class="checkmark"></label> Cardiologist
+                  </label>
+                </div>
+              </div>
+              <div class="btn-search">
+                <button type="submit" class="btn btn-block">Search</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+          <!-- /Search Filter -->
+        </div>
+
+        <div class="col-md-12 col-lg-8 col-xl-9">
+          <!-- Doctor Widget -->
+          {% for doctor in doctors %}
+          <div class="card">
+            <div class="card-body">
+              <div class="doctor-widget">
+                <div class="doc-info-left">
+                  <div class="doctor-img mt-4">
+                    <a href="{% url 'doctorDetail' doctor.specialist.slug doctor.slug %}">
+                      <img
+                        src="{{doctor.user.doctorprofile.profile_pic.url}}"
+                        class="img-fluid"
+                        alt="User Image"
+                      />
+                    </a>
+                  </div>
+                  <div class="doc-info-cont mt-4">
+                    <h4 class="doc-name">
+                      <a href="{% url 'doctorDetail' doctor.specialist.slug doctor.slug %}"
+                        >Dr. {{doctor.user.first_name}} {{doctor.user.last_name}}</a>
+                    </h4>
+                    <p class="doc-speciality">
+                      {{doctor.user.doctorprofile.education1}} - {{doctor.user.doctorprofile.professtion_title1}} 
+                    </p>
+                    <h5 class="doc-department">
+                      <i class="fas fa-user-md img-fluid"></i>
+                      {{doctor.specialist}}
+                    </h5>
+                    <div class="rating">
+                      <i class="fas fa-star"></i>
+                        <i class="{% if doctor.averageReview > 1 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                        <i class="{% if doctor.averageReview > 2 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                        <i class="{% if doctor.averageReview > 3 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                        <i class="{% if doctor.averageReview > 4 %}fas fa-star {% else %}far fa-star{% endif %}"></i>
+                      
+                      <span class="d-inline-block average-rating">({{doctor.totalRating}})</span>
+                    </div>
+                    <div class="clinic-details">
+                      <p class="doc-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{doctor.location}}, Nepal
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="doc-info-right">
+                  <div class="clini-infos">
+                    <ul>
+                      <li><i class="far fa-thumbs-up"></i> {{doctor.avgLike}}%</li>
+                      <li><i class="far fa-comment"></i>{{doctor.totalRating}}</li>
+                      <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{doctor.location}}, Nepal
+                      </li>
+                      <li>
+                       {% if doctor.user.get_gender_display == 'male' %}
+                       <i class="fas fa-mars"></i> Male
+                       {% elif doctor.user.get_gender_display == 'female' %}
+                       <i class="fas fa-venus"></i> Female
+                       {% else %}
+                       <i class="fas fa-exchange-alt"></i> Not Specified
+                       {% endif %}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="clinic-booking">
+                    <a
+                      class="view-pro-btn"
+                      href="{% url 'doctorDetail' doctor.specialist.slug doctor.slug %}"
+                      >View Profile</a
+                    >
+                    {% if doctor.appointed %}
+                    <a
+                      class="apt-btn"
+                      href="{% url 'appointmentDetails' doctor.specialist.slug doctor.slug doctor.pp %}"
+                      >View Appointment</a
+                    >
+                    {% else %}
+                    <a
+                      class="apt-btn"
+                      href="{% url 'doctorAppointment' doctor.specialist.slug doctor.slug  %}"
+                      >Book Appointment</a
+                    >
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p class="h2 text-center">Sorry no result was found, Try another filter<h2>
+          {% endfor %}
+          <!-- /Doctor Widget -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+</div>
+
+{% endblock %}
